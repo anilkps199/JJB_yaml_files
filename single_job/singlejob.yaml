@@ -1,0 +1,108 @@
+- job:
+    scm:
+      - Final-JJB-SimpleJob
+    builders:
+      - shell: "pwd \n
+                whoami \n
+                echo \"$JENKINS_HOME\""
+      - maven-target:
+            maven-version: Maven3
+            pom: pom.xml
+            goals: clean compile package install test site
+    publishers:
+      - archive:
+          artifacts: 'target\*.jar'
+          allow-empty: 'true'
+          fingerprint: true
+          default-excludes: false
+      - email:
+            recipients: anilkumar.ps@accenture.com
+            notify-every-unstable-build: false
+            send-to-individuals: true
+      - email-ext:
+          recipients: foo@example.com, bar@example.com
+          reply-to: foo@example.com
+          content-type: html
+          subject: Subject for Build ${BUILD_NUMBER}
+          body: The build has finished
+          attach-build-log: false
+          compress-log: false
+          attachments: "*/foo*.log"
+          always: true
+          unstable: true
+          first-failure: true
+          first-unstable: true
+          not-built: true
+          aborted: true
+          regression: true
+          failure: true
+          second-failure: true
+          improvement: true
+          still-failing: true
+          success: true
+          fixed: true
+          fixed-unhealthy: true
+          still-unstable: true
+          pre-build: true
+          matrix-trigger: only-configurations
+          presend-script: "cancel=true"
+          postsend-script: "cancel=true"
+          save-output: true
+          send-to:
+            - developers
+            - requester
+            - culprits
+            - recipients
+      - workspace-cleanup:
+          include:
+            - "*.html"
+          exclude:
+            - "*.xml"
+          clean-if:
+            - success: true
+            - unstable: false
+            - failure: false
+            - aborted: false
+            - not-built: false
+          dirmatch: true
+          fail-build: false
+          clean-parent: true
+          #external-deletion-command: 'command'
+          disable-deferred-wipeout: true
+      - fingerprint:
+          files: target/*.jar
+          record-artifacts: false
+      - checkstyle:
+            pattern: '**/target/checkstyle-result.xml'
+            healthy: 0
+            unhealthy: 100
+            health-threshold: 'high'
+            thresholds:
+              unstable:
+                total-high: 10
+              failed:
+                total-high: 1
+    name: Jenkins-Job-Builder-final
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    display-name: 'Final-JJB-SimpleJob'
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    #node: Agent1
+    logrotate:
+      daysToKeep: 3
+      numToKeep: 20
+      artifactDaysToKeep: -1
+      artifactNumToKeep: -1
+- scm:
+    name: Final-JJB-SimpleJob
+    scm:
+      - git:
+         url: https://github.com/anilkps199/Sample_maven_pjt.git
+         branches:
+          - master
