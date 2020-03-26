@@ -1,0 +1,18 @@
+- job:
+    name: test-maven-pjt
+    project-type: maven
+    maven:
+        root-pom: pom.xml
+        goals: clean install
+        root-module:
+            group-id: com.jcg.maven
+            artifact-id: MavenHelloWorldProject
+        incremental-build: true
+        automatic-archiving: false
+        automatic-site-archiving: false
+        parallel-build-modules: true
+        resolve-dependencies: true
+        process-plugins: true
+        run-headless: true
+        disable-downstream: true
+        custom-workspace: /var/lib/jenkins/workspace/Sample_maven_pjt

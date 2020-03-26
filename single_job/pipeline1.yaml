@@ -1,0 +1,15 @@
+- job:
+    name: test_job
+    project-type: pipeline
+    dsl: |
+      pipeline {
+         agent any
+
+         stages {
+            stage('Hello') {
+               steps {
+                  echo 'Hello World'
+               }
+            }
+         }
+      }

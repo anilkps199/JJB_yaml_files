@@ -1,0 +1,24 @@
+- job:
+    name: test_multijob
+    project-type: multijob
+    builders:
+        - multijob:
+            name: PhaseOne
+            condition: SUCCESSFUL
+            projects:
+                - name: 3-JJB-Temp-1
+                  current-parameters: true
+                  git-revision: true
+                - name: 3-JJB-Temp-2
+                  current-parameters: true
+                  property-file: build.props
+        - multijob:
+            name: PhaseTwo
+            condition: UNSTABLE
+            projects:
+                - name: 3-JJB-Temp-3
+                  current-parameters: true
+                  predefined-parameters: foo=bar
+                - name: PhaseTwoJobB
+                  current-parameters: false
+

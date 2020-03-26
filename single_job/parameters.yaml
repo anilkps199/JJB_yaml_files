@@ -1,0 +1,17 @@
+- job:
+    name: test_parameter
+    parameters:
+      - string:
+          name: param1
+          default: bar
+          description:
+      - bool:
+          name: param2
+          default: false
+          description: "A parameter named FOO, defaults to 'false'."
+      - choice:
+          name: project
+          choices:
+            - nova
+            - glance
+          description: "On which project to run?"
