@@ -1,15 +1,13 @@
 - job:
-    name: test_job
+    name: Pipeline-test-job
     project-type: pipeline
-    dsl: |
-      pipeline {
-         agent any
-
-         stages {
-            stage('Hello') {
-               steps {
-                  echo 'Hello World'
-               }
-            }
-         }
-      }
+    sandbox: true
+    pipeline-scm:
+      scm:
+        - git:
+            url: https://github.com/anilkps199/Sample_maven_pjt.git
+            # clean: true
+            branches:
+               - origin/master
+      script-path: Jenkinsfile
+      lightweight-checkout: true
