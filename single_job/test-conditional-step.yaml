@@ -1,0 +1,63 @@
+- job:
+    
+    scm:
+      - Final-JJB-SimpleJob
+    name: test-conditional-step
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    #node: Agent1
+    builders:
+        - conditional-step:
+              condition-kind: not
+              condition-operand:
+                  condition-kind: file-exists
+                  condition-filename: mytestfile
+                  condition-basedir: workspace
+              steps:
+                  - shell: "echo \"condition 1 =========> `touch $WORKSPACE/mytestfile`\""
+        - conditional-step:
+              condition-kind: current-status
+              condition-worst: SUCCESS
+              condition-best: SUCCESS
+              steps:
+                  - shell: "echo \"condition 2 ============> `ls -l`\""
+        - conditional-step:
+              condition-kind: day-of-week
+              day-selector: weekday
+              use-build-time: true
+              steps:
+                  - shell: "echo  \"condition 3 ===================> `date`\""
+        - conditional-step:
+              condition-kind: day-of-week
+              day-selector: select-days
+              days:
+                    MON: true
+                    FRI: true
+              use-build-time: true
+              steps:
+                    - shell: "echo  \"condition 4 ===================> `date`\""
+        - conditional-step:
+              condition-kind: time
+              earliest-hour: "4"
+              earliest-min: "15"
+              latest-hour: "20"
+              latest-min: "30"
+              steps:
+                    - maven-target:
+                        maven-version: Maven3
+                        pom: pom.xml
+                        goals: clean compile package install test site
+- scm:
+    name: Final-JJB-SimpleJob
+    scm:
+      - git:
+         url: https://github.com/anilkps199/Sample_maven_pjt.git
+         branches:
+          - master

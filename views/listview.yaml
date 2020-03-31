@@ -1,0 +1,17 @@
+- view:
+      name: list-view-name01
+      view-type: list
+      description: 'Sample description'
+      filter-executors: true
+      filter-queue: true
+      job-name:
+          - 3-JJB-Temp-1
+          - 3-JJB-Temp-2
+          - 3-JJB-Temp-3
+      columns:
+          - status
+          - weather
+          - job
+          - last-success
+          - last-failure
+          - last-duration
