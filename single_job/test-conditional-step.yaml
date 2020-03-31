@@ -50,6 +50,7 @@
               latest-hour: "20"
               latest-min: "30"
               steps:
+                    - shell: "echo  \"condition 5 ===================> `date`\""
                     - maven-target:
                         maven-version: Maven3
                         pom: pom.xml
