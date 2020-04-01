@@ -1,0 +1,18 @@
+- job:
+    name: test-http
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    builders:
+        - http-request:
+              url: http://localhost:8080
+              mode: GET
+              authentication-key: 7b3d34e7-bc25-4872-ac44-ee2b6db7478c
+              console-log: true
+

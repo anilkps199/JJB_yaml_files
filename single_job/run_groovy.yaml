@@ -1,0 +1,16 @@
+- job:
+    name: run-groovy
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    builders:
+        - groovy:
+              command: "println('Hello World from command')"
+        - groovy:
+              file: sample_groovy.groovy
