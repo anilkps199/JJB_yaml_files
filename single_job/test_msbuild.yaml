@@ -1,0 +1,26 @@
+# This was tested in Windows 10.
+- job:
+    name: test-msbuild
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    builders:
+        - msbuild:
+            solution-file: "C:\\Users\\anilkumar.ps\\Downloads\\HelloWorldMBDotNet\\HelloWorld\\HelloWorldCS.sln"
+            msbuild-version: "mymsbuild"
+            extra-parameters: "/t:Clean"
+            pass-build-variables: False
+            continue-on-build-failure: True
+            unstable-if-warnings: True
+        - msbuild:
+            solution-file: "C:\\Users\\anilkumar.ps\\Downloads\\HelloWorldMBDotNet\\HelloWorld\\HelloWorldCS.sln"
+            msbuild-version: "mymsbuild"
+            pass-build-variables: False
+            continue-on-build-failure: True
+            unstable-if-warnings: True

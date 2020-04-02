@@ -1,0 +1,18 @@
+- job:
+    name: test-managed-script
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    builders:
+        - managed-script:
+            script-id: e323bb9a-d52a-4cc1-888b-deb9b3ce9945
+            type: script
+            args:
+              - "10"
+              - "30"
