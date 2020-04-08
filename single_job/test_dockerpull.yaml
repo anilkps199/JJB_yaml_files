@@ -1,0 +1,25 @@
+- job:
+    scm:
+      - dockerbuild_Template
+    name: Anil/test_dockerpullimage
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    builders:
+        - docker-pull-image:
+              image: anilkps199/demorepo:demo-image
+              docker-registry-url: https://index.docker.io/v1/
+              credentials-id: e7ed659b-f0dd-4df5-85c0-e121d47a7b9b
+- scm:
+    name: dockerbuild_Template
+    scm:
+      - git:
+         url: https://github.com/anilkps199/sample_docker_container.git
+         branches:
+          - master

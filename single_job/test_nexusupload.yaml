@@ -1,0 +1,39 @@
+- job:
+    scm:
+      - Final-JJB-SimpleJob
+    name: Anil/test_nexus_upload
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    builders:
+        - maven-target:
+              maven-version: Maven
+              pom: pom.xml
+              goals: clean compile package install test site
+        - nexus-artifact-uploader:
+              nexus-version: NEXUS3
+              protocol: 'http'
+              nexus_url: '10.0.212.146:8081/'
+              group_id: 'com.jcg.maven'
+              artifact_id: 'MavenHelloWorldProject'
+              version: '1.0.2'
+              packaging: 'pom'
+              type: 'jar'
+              classifier: ''
+              repository: 'maven-releases'
+              file: 'target/MavenHelloWorldProject-1.0-SNAPSHOT.jar'
+              credentials_id: 5b22b6d4-06bc-4feb-89b2-ed53bbc74688
+- scm:
+    name: Final-JJB-SimpleJob
+    scm:
+      - git:
+         url: https://github.com/anilkps199/Sample_maven_pjt.git
+         branches:
+          - master
+

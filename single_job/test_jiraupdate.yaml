@@ -1,0 +1,22 @@
+- job:
+    name: Anil/test-jiraissue-update
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    builders:
+       - jenkins-jira-issue-updater:
+          base-url: http://10.0.212.146:8082/rest/api/2
+          username: jirauser
+          password: jirauser123
+          jql: project=JJB and issue=JJB-1
+          workflow: Done
+          comment: tested and code pushed
+          fail-if-error: true
+          fail-if-no-match: true
+          fail-if-no-connection: true

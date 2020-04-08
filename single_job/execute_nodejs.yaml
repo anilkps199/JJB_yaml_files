@@ -1,5 +1,5 @@
 - job:
-    name: Anil/test-http
+    name: Anil/execute-nodejs
     project-type: freestyle
     defaults: global
     description: 'Do not edit this job through the web!'
@@ -10,8 +10,7 @@
     block-upstream: false
     retry-count: 3
     builders:
-        - http-request:
-              url: http://localhost:8080
-              mode: GET
-              authentication-key: b62b77b9-90a4-4af9-8319-07d942b271e3
-              console-log: true
+        - nodejs:
+            script: |
+                 console.log('build number ' + process.env['BUILD_NUMBER']);
+                 console.log('current dir ' + process.cwd())
