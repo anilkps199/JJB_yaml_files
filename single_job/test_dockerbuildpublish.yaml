@@ -1,7 +1,7 @@
 - job:
     scm:
       - dockerbuild_Template
-    name: Anil/test_dockerbuildpublish1
+    name: Anil/test_dockerbuildpublish
     project-type: freestyle
     defaults: global
     description: 'Do not edit this job through the web!'
