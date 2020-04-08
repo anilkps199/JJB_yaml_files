@@ -1,7 +1,7 @@
 - job:
     scm:
       - dockerbuild_Template
-    name: Anil/test_dockerbuildpublish
+    name: Anil/test_dockerbuildpublish1
     project-type: freestyle
     defaults: global
     description: 'Do not edit this job through the web!'
@@ -21,7 +21,7 @@
             skip-decorate: false
             skip-latest: false
             skip-tag: false
-            file-path: '/var/lib/jenkins/workspace/Anil/sample_docker_container/PythonApp/Dockerfile'
+            file-path: '/var/lib/jenkins/workspace/Anil/test_dockerbuildpublish/PythonApp/Dockerfile'
             create-fingerprint: true
             registry:
                 url: 'https://index.docker.io/'
